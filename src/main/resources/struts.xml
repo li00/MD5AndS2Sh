@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <!-- 开启动态方法调用-->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <!-- 启用开发模式-->
+    <constant name="struts.devMode" value="true" />
+    <!-- 将Action交由Spring来创建-->
+    <constant name="struts.objectFactory" value="spring" />
+    <package name="default" extends="struts-default" namespace="/user">
+        <global-allowed-methods>regex:.*</global-allowed-methods>
+
+        <action name="reg" class="com.lzf.s2shMD5.action.UserController" method="reg">
+            <result name="success">/WEB-INF/page/reg.jsp</result>
+        </action>
+        <action name="doReg" class="com.lzf.s2shMD5.action.UserController" method="doReg">
+            <result name="success" >index.jsp</result>
+            <result name="error">/WEB-INF/page/reg.jsp</result>
+        </action>
+        <action name="login" class="com.lzf.s2shMD5.action.UserController" method="login">
+            <result name="success">/WEB-INF/page/success.jsp</result>
+            <result name="error">index.jsp</result>
+        </action>
+        <action name="loginOut" class="com.lzf.s2shMD5.action.UserController" method="loginOut">
+            <result name="success">index.jsp</result>
+        </action>
+        <action name="getUser" class="com.lzf.s2shMD5.action.UserController" method="ajax">
+            <result>/WEB-INF/page/reg.jsp</result>
+        </action>
+    </package>
+</struts>

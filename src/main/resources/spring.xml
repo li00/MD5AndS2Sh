@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!-- 开启Spring注解-->
+    <context:annotation-config />
+    <!-- 设置Spring去哪个包找注解的类-->
+    <context:component-scan base-package="com.lzf.s2shMD5" />
+    <!-- 设置properties文件的路径-->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="classpath*:jdbc.properties" />
+    </bean>
+    <!-- 定义数据源-->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <!-- 驱动类-->
+        <property name="driverClassName" value="${driver}"/>
+        <!-- 连接地址-->
+        <property name="url" value="${url}"/>
+        <!-- 数据库用户名-->
+        <property name="username" value="${username}"/>
+        <!-- 数据库密码-->
+        <property name="password" value="${password}"/>
+        <property  name="maxIdle"  value="40"/>
+        <property  name="minIdle"  value="1"/>
+        <property  name="initialSize"  value="1"/>
+        <property  name="maxWait"  value="60"/>
+    </bean>
+
+    <!-- 创建SessionFactory-->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <!-- 引用的数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 通过包查找使用了Hibernate注解的类-->
+        <property name="packagesToScan">
+            <list>
+                <!-- 包路径-->
+                <value>com.lzf.s2shMD5.model</value>
+            </list>
+        </property>
+        <!-- Hibernate相关属性-->
+        <property name="hibernateProperties">
+            <!-- 使用Properties进行注入-->
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- Spring事务管理是通过AOP来完成的-->
+    <bean id="txManage" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <!-- 定义切面-->
+    <aop:config>
+        <!-- 定义切点-->
+        <aop:pointcut id="allMethods" expression="execution(* com.lzf.s2shMD5.service.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="allMethods" />
+    </aop:config>
+    <!-- 配置声明式事务-->
+    <tx:advice id="txAdvice" transaction-manager="txManage">
+        <tx:attributes>
+            <!-- 如果没有事务就创建事务-->
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="del*" propagation="REQUIRED" />
+            <!-- 剩下均不加事务-->
+            <tx:method name="*" read-only="true" />
+        </tx:attributes>
+    </tx:advice>
+</beans>
