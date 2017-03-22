@@ -78,12 +78,25 @@ public class UserController extends ActionSupport{
     public void ajax()throws IOException{
         String hql = "from User where name=?";
         System.out.println(hql);
-        User u = iUserService.getU(name,hql);
-        HttpServletResponse resp = ServletActionContext.getResponse();
-        resp.setCharacterEncoding("utf-8");
-        resp.getWriter().write(u.getName());
+        User u = null;
+        try {
+             u = iUserService.getU(name,hql);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            HttpServletResponse resp = ServletActionContext.getResponse();
+            resp.setCharacterEncoding("utf-8");
+            resp.getWriter().write(u.getName());
+        }
     }
 
+    /**
+     * 获取验证码
+     * @return
+     */
+    public String excute(){
+        return SUCCESS;
+    }
     //以下皆为属性封装方法========================================
     public User getUser() {
         return user;

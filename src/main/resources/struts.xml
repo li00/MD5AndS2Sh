@@ -29,5 +29,9 @@
         <action name="getUser" class="com.lzf.s2shMD5.action.UserController" method="ajax">
             <result>/WEB-INF/page/reg.jsp</result>
         </action>
+
+        <action name="validate" class="com.lzf.s2shMD5.action.UserController">
+            <result>/validate</result>
+        </action>
     </package>
 </struts>

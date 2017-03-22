@@ -56,11 +56,11 @@
     </session-config>
     <error-page>
         <error-code>404</error-code>
-        <location>/WEB-INF/page/500.jsp</location>
+        <location>/WEB-INF/page/error.jsp</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/WEB-INF/page/500.jsp</location>
+        <location>/WEB-INF/page/error.jsp</location>
     </error-page>
     <!--验证码-->
     <servlet>
