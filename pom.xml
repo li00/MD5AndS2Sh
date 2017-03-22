@@ -82,12 +82,6 @@
       <artifactId>spring-context-support</artifactId>
       <version>4.3.4.RELEASE</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc-portlet -->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc-portlet</artifactId>
-      <version>4.3.4.RELEASE</version>
-    </dependency>
     <!-- Hibernate Jar-->
     <dependency>
       <groupId>org.hibernate</groupId>
