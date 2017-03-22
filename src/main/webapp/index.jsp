@@ -26,7 +26,7 @@
             </tr>
             <tr>
                 <td>验证码：</td>
-                <td><input type="text" name="validate" width="40"/><%--<img src="/validate" alt="验证码" id="validate">--%></td>
+                <td><input type="text" name="validate" width="40"/><img src="/validate" alt="验证码" id="validate"></td>
             </tr>
             <tr>
                 <td colspan="2" align="center"> <input type="submit" value="登陆"> <a href="/user/reg">注册</a></td>
