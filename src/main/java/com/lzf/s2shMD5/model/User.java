@@ -1,22 +1,26 @@
 package com.lzf.s2shMD5.model;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
+
+import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
  * Created by Administrator on 2017/3/19.
  */
 @Entity
-@Table(name = "user")
+@Table(name = "test_user")
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class User {
     private int id;
     private String name;
     private String password;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment",strategy = "increment")
     public int getId() {
         return id;
     }

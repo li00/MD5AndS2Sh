@@ -23,19 +23,25 @@ public class UserServiceImp implements IUserService {
         iUserDao.delete(id);
     }
 
-    public boolean getUser(String name,String hql,String passwd) {
+    public boolean getUser(String name,String hql,String passwd,String validate) {
         User u = this.iUserDao.getUser(name,hql);
+        String code = (String)ActionContext.getContext().getSession().get(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
         if(u!=null){
             String pwd = MD5.md5(passwd,name);
             if(u.getPassword().equals(pwd)){
-                ActionContext.getContext().getSession().put("user", name);
-                return true;
+               if(code.equals(validate)){
+                   ActionContext.getContext().getSession().put("user", name);
+                   return true;
+               }else {
+                   ActionContext.getContext().put("msg", "验证码输入错误！");
+                   return false;
+               }
             }else {
                 ActionContext.getContext().put("msg", "用户名与密码输入不一致！");
                 return false;
             }
         }else {
-         return false;
+            return false;
         }
     }
 

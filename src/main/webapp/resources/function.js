@@ -9,12 +9,13 @@ $(function () {
                                 data: {name: name},
                                 dataType: 'json',
                                 success: function (data) {
-                                        if (data == name) {
+                                        alert(data);
+                                        if(data==name) {
                                                 $("#name").html("该用户已被注册！");
-                                        }else if(data != name){
-                                                alert("1")
-                                                $("#name").html("ok");
                                         }
+                                },
+                                error:function () {
+                                        $("#name").html("😇");
                                 }
                         });
                 }

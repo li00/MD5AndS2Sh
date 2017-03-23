@@ -5,8 +5,12 @@ h1{
     text-align: center;
 }
 #in_validate{
-    width: 50px;
+    width: 70px;
 }
 td{
-    margin-top: 10px;
+    line-height: 30px;
+}
+img{vertical-align:middle;}
+#in_validate{
+    width: 70px;
 }

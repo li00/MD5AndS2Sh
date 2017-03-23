@@ -7,10 +7,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
     
-    <!-- 加载spring配置文件-->
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <!-- 加载spring配置文件-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath*:spring.xml</param-value>
@@ -72,7 +73,7 @@
         </init-param>
         <init-param>
             <param-name>kaptcha.textproducer.char.space</param-name>   <!--字符之间的间距 -->
-            <param-value>6</param-value>
+            <param-value>5</param-value>
         </init-param>
         <init-param>
             <param-name>kaptcha.textproducer.char.length</param-name>   <!-- 字符的个数 -->
@@ -80,15 +81,23 @@
         </init-param>
         <init-param>
             <param-name>kaptcha.image.height</param-name>
-            <param-value>30</param-value>
+            <param-value>24</param-value>
+        </init-param>
+        <init-param>
+            <param-name>kaptcha.textproducer.font.color</param-name>
+            <param-value>blue</param-value>
+        </init-param>
+        <init-param>
+            <param-name>kaptcha.noise.color</param-name>
+            <param-value>pink</param-value>
         </init-param>
         <init-param>
             <param-name>kaptcha.image.width</param-name>
-            <param-value>120</param-value>
+            <param-value>110</param-value>
         </init-param>
         <init-param>
             <param-name>kaptcha.textproducer.font.size</param-name>
-            <param-value>23</param-value>
+            <param-value>21</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>

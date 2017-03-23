@@ -18,6 +18,7 @@ public class UserController extends ActionSupport{
     private User user;
     private String name;
     private String password;
+    private String validate;
 
     @Autowired
     private IUserService iUserService;
@@ -55,7 +56,7 @@ public class UserController extends ActionSupport{
         if(ActionContext.getContext().getSession().get("user")!=null){
             ActionContext.getContext().put("msg","该用户已登陆！");
             return "error";
-        }else if (iUserService.getUser(name, hql, password)) {
+        }else if (iUserService.getUser(name, hql, password, validate)) {
                 return "success";
             } else {
             return "error";
@@ -77,23 +78,13 @@ public class UserController extends ActionSupport{
      */
     public void ajax()throws IOException{
         String hql = "from User where name=?";
-        System.out.println(hql);
-        User u = null;
-        try {
-             u = iUserService.getU(name,hql);
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            HttpServletResponse resp = ServletActionContext.getResponse();
-            resp.setCharacterEncoding("utf-8");
-            resp.getWriter().write(u.getName());
-        }
+        User u = iUserService.getU(name,hql);
+        HttpServletResponse resp = ServletActionContext.getResponse();
+        resp.setCharacterEncoding("utf-8");
+        resp.getWriter().write(u.getName());
+        System.out.println(u.getName()+"====");
     }
 
-    /**
-     * 获取验证码
-     * @return
-     */
     public String excute(){
         return SUCCESS;
     }
@@ -120,5 +111,13 @@ public class UserController extends ActionSupport{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getValidate() {
+        return validate;
+    }
+
+    public void setValidate(String validate) {
+        this.validate = validate;
     }
 }

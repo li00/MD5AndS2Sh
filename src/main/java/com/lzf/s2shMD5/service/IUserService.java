@@ -8,6 +8,6 @@ import com.lzf.s2shMD5.model.User;
 public interface IUserService {
     void add(User user,String name,String passwd);
     void delete(int id);
-    boolean getUser(String name,String hql,String passwd);
+    boolean getUser(String name,String hql,String passwd,String validate);
     User getU(String name,String hql);
 }

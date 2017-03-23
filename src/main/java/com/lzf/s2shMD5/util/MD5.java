@@ -16,7 +16,6 @@ public class MD5 {
                String s = Integer.toHexString((token.hashCode()+bt+12/5+19) & 0xf);
                 pwd +=s;
             }
-            System.out.println(pwd);
         }catch (Exception e){
             e.printStackTrace();
         }

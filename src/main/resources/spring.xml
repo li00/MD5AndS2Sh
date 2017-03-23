@@ -15,7 +15,7 @@
     <!-- 开启Spring注解-->
     <context:annotation-config />
     <!-- 设置Spring去哪个包找注解的类-->
-    <context:component-scan base-package="com.lzf.s2shMD5" />
+    <context:component-scan base-package="com.lzf.s2shMD5.*" />
     <!-- 设置properties文件的路径-->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations" value="classpath*:jdbc.properties" />
@@ -33,17 +33,18 @@
         <property  name="maxIdle"  value="40"/>
         <property  name="minIdle"  value="1"/>
         <property  name="initialSize"  value="1"/>
-        <property  name="maxWait"  value="60"/>
+        <property  name="maxActive" value="20"/>
+        <property  name="maxWait"  value="2000"/>
     </bean>
 
     <!-- 创建SessionFactory-->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <!-- 引用的数据源-->
         <property name="dataSource" ref="dataSource"/>
+
         <!-- 通过包查找使用了Hibernate注解的类-->
         <property name="packagesToScan">
-            <list>
-                <!-- 包路径-->
+            <list><!-- 包路径-->
                 <value>com.lzf.s2shMD5.model</value>
             </list>
         </property>
@@ -51,12 +52,21 @@
         <property name="hibernateProperties">
             <!-- 使用Properties进行注入-->
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop><!--数据库方言-->
+                <prop key="hibernate.hbm2ddl.auto">update</prop><!--自动创建表-->
+                <prop key="hibernate.show_sql">true</prop><!--操作数据库的时候显示sql-->
+
+                <!-- 高速缓存提供程序,由于spring也使用了Ehcache, 保证双方都使用同一个缓存管理器 -->
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
+                <prop key="hibernate.cache.use_second_level_cache">true</prop><!--开启二级缓存-->
+                <prop key="hibernate.cache.use_query_cache">true</prop><!--开启查询缓存-->
+                <!--指定ehcache.xml配置文件-->
+                <prop key="net.sf.ehcache.configurationResourceName">/ehcache.xml</prop>
+                <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
             </props>
         </property>
     </bean>
+
 
     <!-- Spring事务管理是通过AOP来完成的-->
     <bean id="txManage" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
