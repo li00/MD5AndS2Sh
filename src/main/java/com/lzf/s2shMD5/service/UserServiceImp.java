@@ -19,6 +19,7 @@ public class UserServiceImp implements IUserService {
         iUserDao.add(user);
     }
 
+
     public void delete(int id) {
         iUserDao.delete(id);
     }
@@ -47,5 +48,9 @@ public class UserServiceImp implements IUserService {
 
     public User getU(String name, String hql) {
         return iUserDao.getU(hql,name);
+    }
+
+    public User Users(int id) {
+        return iUserDao.Users(id);
     }
 }

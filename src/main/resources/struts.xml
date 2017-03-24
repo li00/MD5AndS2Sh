@@ -33,5 +33,9 @@
         <action name="validate" class="com.lzf.s2shMD5.action.UserController">
             <result>/validate</result>
         </action>
+
+        <action name="testcache" class="com.lzf.s2shMD5.action.UserController" method="testCache">
+            <result name="success">/WEB-INF/page/success.jsp</result>
+        </action>
     </package>
 </struts>

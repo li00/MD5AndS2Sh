@@ -40,6 +40,7 @@
             </tr>
         </table>
     </form>
+    <a href="/user/testcache">测试缓存</a>
 </body>
 </html>
 

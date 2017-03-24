@@ -85,6 +85,16 @@ public class UserController extends ActionSupport{
         System.out.println(u.getName()+"====");
     }
 
+    /**
+     * 测试缓存用
+     * @return
+     */
+    public String testCache(){
+        User u = iUserService.Users(12);
+        System.out.println(u.getName()+"\t"+u.getPassword());
+        return SUCCESS;
+    }
+
     public String excute(){
         return SUCCESS;
     }

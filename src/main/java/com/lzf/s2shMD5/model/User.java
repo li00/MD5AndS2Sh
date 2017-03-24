@@ -10,9 +10,9 @@ import javax.persistence.Table;
 /**
  * Created by Administrator on 2017/3/19.
  */
-@Entity
+@Entity(name = "User")
 @Table(name = "test_user")
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY,region = "User")
 public class User {
     private int id;
     private String name;

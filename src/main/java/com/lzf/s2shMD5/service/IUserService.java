@@ -10,4 +10,5 @@ public interface IUserService {
     void delete(int id);
     boolean getUser(String name,String hql,String passwd,String validate);
     User getU(String name,String hql);
+    User Users(int id);
 }

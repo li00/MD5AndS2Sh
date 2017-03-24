@@ -57,11 +57,12 @@
                 <prop key="hibernate.show_sql">true</prop><!--操作数据库的时候显示sql-->
 
                 <!-- 高速缓存提供程序,由于spring也使用了Ehcache, 保证双方都使用同一个缓存管理器 -->
-                <prop key="hibernate.cache.provider_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
+               <!-- <prop key="hibernate.cache.provider_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>-->
                 <prop key="hibernate.cache.use_second_level_cache">true</prop><!--开启二级缓存-->
                 <prop key="hibernate.cache.use_query_cache">true</prop><!--开启查询缓存-->
-                <!--指定ehcache.xml配置文件-->
-                <prop key="net.sf.ehcache.configurationResourceName">/ehcache.xml</prop>
+                <!--&lt;!&ndash;指定ehcache.xml配置文件&ndash;&gt;
+                <prop key="net.sf.ehcache.configurationResourceName">/ehcache.xml</prop>-->
+                <prop key="cache.provider_configuration_file_resource_path">/ehcache.xml</prop>
                 <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
             </props>
         </property>
